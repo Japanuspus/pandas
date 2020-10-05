@@ -128,7 +128,7 @@ class BaseGrouper:
         splitter = self._get_splitter(data, axis=axis)
         keys = self._get_group_keys()
         for key, (i, group) in zip(keys, splitter):
-            yield key, group
+            yield key, group.__finalize__(data, method="groupby")
 
     def _get_splitter(self, data: FrameOrSeries, axis: int = 0) -> "DataSplitter":
         comp_ids, _, ngroups = self.group_info
